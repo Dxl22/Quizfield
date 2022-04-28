@@ -7,8 +7,46 @@ body {
     
 }
 
+
+
+form {
+    font-weight: bold;
+    text-align: left;
+    
+}
+
+form input {
+    display: inline-block;
+    margin-top: 1.5rem;
+    
+
+    
+}
+form label {
+    text-align: left;
+}
+
+div {
+    margin-top: 5rem;
+    padding: 2rem;
+    border: 5px solid black ;
+    
+}
+
+.hideDiv {
+    display: none;
+}
+
+.showDiv {
+    display: block;
+}
+
 .Title {
     margin-top: 15rem;
+}
+
+.resultTitle {
+    text-align: left;
 }
 
 .par {
