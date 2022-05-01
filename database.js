@@ -25,27 +25,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Submit scores to the database, returns the documents id (you probably don't need it) if succeeded, error otherwise
+// Submit scores to the database, returns the documents id (you probably don't need it) if succeeded, error otherwise (needs async/await or then for return values)
 export const submitScore = async (name, score) => {
-  try {
-    const docRef = await addDoc(collection(db, "leaderboards"), {
-      name: name,
-      score: score,
-    });
-    console.log("Score submitted!");
-  } catch (e) {
-    console.error("Error submitting score: ", e);
+  if (
+    typeof name === "string" &&
+    name.length > 0 &&
+    typeof score === "number" &&
+    score >= 0
+  ) {
+    try {
+      const docRef = await addDoc(collection(db, "leaderboards"), {
+        name: name,
+        score: score,
+      });
+      console.log("Score submitted!");
+    } catch (e) {
+      console.error("Error submitting score: ", e);
+    }
+  } else {
+    throw "Invalid input, name must be string and at least 1 character long, score must be number and at least 0";
   }
 };
 
 // Returns an array of objects with the names and scores of the leaderboards in descending order
-// THIS IS AN ASYNC FUNCTION, YOU NEED TO AWAIT OR THEN IT
+// THIS IS AN ASYNC FUNCTION, YOU NEED TO ASYNC/AWAIT OR THEN IT
 export const loadScores = async () => {
   const querySnapshot = await getDocs(collection(db, "leaderboards"));
   const scores = [];
   querySnapshot.forEach((doc) => {
-    scores.push({name: doc.data().name, score: doc.data().score});
+    scores.push({ name: doc.data().name, score: doc.data().score });
   });
-  scores.sort(function(a, b){return b.score - a.score})
+  scores.sort(function (a, b) {
+    return b.score - a.score;
+  });
   return scores;
 };
