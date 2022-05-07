@@ -33,6 +33,15 @@ const correctAnswers = {
 
 let score = 0;
 
+<<<<<<< HEAD
+
+try {
+  const startbtn = document.getElementById("startbtn");
+  startbtn.addEventListener("click", startBtn);
+} catch {}
+
+=======
+>>>>>>> 529daeba08e78a7f74f6896caed61986547dc81d
 try {
   const submitButton = document.getElementById("submit-btn");
   submitButton.addEventListener("click", nextQuestion);
@@ -40,6 +49,20 @@ try {
 // Sorry I had to move those ^ two lines inside a try...catch statement because they were causing 
 // null errors in pages other than quizPage.html because "submit-btn" doesn't exist anywhere else 
 // and the error was preventing the rest of the script from running
+<<<<<<< HEAD
+function startBtn() {
+  const username = document.getElementById("inputfield").value;
+  if (username.length < 3) {
+    alert("username must be above 3 characters");
+  }
+  else {
+    localStorage.setItem("username",username);
+    window.location.replace("quizPage.html");
+  }
+}
+
+=======
+>>>>>>> 529daeba08e78a7f74f6896caed61986547dc81d
 
 let index = 1;
 
@@ -54,6 +77,17 @@ function nextQuestion() {
 
       index += 1;
 
+<<<<<<< HEAD
+      if (document.getElementById(`Q${index}`) == null)
+      {
+        const input = localStorage.getItem("username");
+        submitScore(input,score);
+        window.location.replace("result.html");
+        return;
+      }
+
+=======
+>>>>>>> 529daeba08e78a7f74f6896caed61986547dc81d
       document.getElementById(`Q${index}`).classList.remove("hideDiv");
       return;
     }
@@ -61,7 +95,12 @@ function nextQuestion() {
   alert("YOU NEED TO PICK AN ANSWER");
 }
 
+<<<<<<< HEAD
+// TODO: add color grade to right or wrong answer with a timer for next question
+// work on result page
+=======
 // TODO: Make an onClick function for the anchor tag that starts the quiz at first,
 // assuming you will have the name input right with the button, you'll need a way
 // to save the name in JS because it will get lost on page transition... (You'll
 // probably have to change the <a> into a <button> or something...)
+>>>>>>> 529daeba08e78a7f74f6896caed61986547dc81d
