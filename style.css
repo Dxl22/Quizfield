@@ -109,6 +109,22 @@ a, a:visited {
     
 }
 
+.disabled {
+    background-color: #B8FFF9 !important;
+    color:#3e1d44 !important;   
+}
+
+table {
+    border-spacing: 1rem;
+    font-size: larger;
+}
+
+.boldtext {
+    font-weight: bold;
+    color: #01b4a5;
+}
+
+
 @media only screen and (max-width: 768px) {
     .Title {
         margin-top: 10rem;
@@ -129,3 +145,4 @@ a, a:visited {
         width: 70%;
     }
   }
+

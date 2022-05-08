@@ -34,15 +34,17 @@ const correctAnswers = {
 let score = 0;
 
 
-try {
-  const startbtn = document.getElementById("startbtn");
-  startbtn.addEventListener("click", startBtn);
-} catch {}
 
-try {
+const startbtn = document.getElementById("startbtn");
+if(startbtn != null){
+  startbtn.addEventListener("click", startBtn) 
+}
+
+
   const submitButton = document.getElementById("submit-btn");
+  if (submitButton !=null) {
   submitButton.addEventListener("click", nextQuestion);
-} catch {}
+  }
 // Sorry I had to move those ^ two lines inside a try...catch statement because they were causing 
 // null errors in pages other than quizPage.html because "submit-btn" doesn't exist anywhere else 
 // and the error was preventing the rest of the script from running
@@ -60,7 +62,7 @@ function startBtn() {
 
 let index = 1;
 
-function nextQuestion() {
+async function nextQuestion() {
   for (let i = 1; i <= 4; i++) {
     if (document.getElementById(`A${index}-${i}`).checked) {
       if (correctAnswers[`Q${index}`] == i) {
@@ -74,7 +76,11 @@ function nextQuestion() {
       if (document.getElementById(`Q${index}`) == null)
       {
         const input = localStorage.getItem("username");
-        submitScore(input,score);
+        submitButton.setAttribute('disabled', true);
+        submitButton.innerText ="Loading...";
+        submitButton.classList.add("disabled");
+        await submitScore(input,score);
+
         window.location.replace("result.html");
         return;
       }
@@ -85,6 +91,32 @@ function nextQuestion() {
   }
   alert("YOU NEED TO PICK AN ANSWER");
 }
+try {
+const scoreboard = document.getElementById("scoreboard");
+if (scoreboard != null) {
+  scoreLoader();
+}
 
-// TODO: add color grade to right or wrong answer with a timer for next question
-// work on result page
+} catch{}
+
+async function scoreLoader() {
+     const scores = await loadScores();
+     const input = localStorage.getItem("username");
+     let loadedscores = `<tr>
+     <th>Name</th>
+     <th>Score</th>
+   </tr>`;
+     scores.forEach((e)=>{
+       loadedscores = loadedscores +
+        `
+       <tr class="${e.name == input ? "boldtext":""}">
+         <td>${e.name}</td>
+         <td>${e.score}</td>
+       </tr>
+     `
+     })
+     scoreboard.innerHTML = loadedscores
+   }
+
+
+
